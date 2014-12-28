@@ -26,7 +26,6 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = (
@@ -36,7 +35,27 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'user_profile',
+    'tweet',
+    'social.apps.django_app.default',
 )
+
+
+AUTHENTICATION_BACKENDS = (
+    'social.backends.twitter.TwitterOAuth',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.contrib.messages.context_processors.messages',
+    'social.apps.django_app.context_processors.backends',
+)
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -51,28 +70,36 @@ ROOT_URLCONF = 'mytweets.urls'
 
 WSGI_APPLICATION = 'mytweets.wsgi.application'
 
+AUTH_USER_MODEL = 'user_profile.User'
+
+SOCIAL_AUTH_USER_MODEL = 'user_profile.User'
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/profile'
+SOCIAL_AUTH_LOGIN_ERROR_URL = '/login-error/'
+SOCIAL_AUTH_LOGIN_URL = '/login/'
+SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/logout/'
+
+SOCIAL_AUTH_TWITTER_KEY = 'Oc9Wukul7UphHxLxfMRQaBlk6'
+SOCIAL_AUTH_TWITTER_SECRET = '5SVLkq2mI00p2XXSqf47Ngj8VJ3KyjKyjJcUN2CAXfvdfkB8uq'
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+	    'default': {
+	        'ENGINE': 'django.db.backends.mysql',
+	        'NAME': 'mytweets',
+	        'USER': 'root',
+	        'PASSWORD': 'root',
+	    }
+	}
 
-#static file directory inclusion
-STATICFILES_DIRS = (            
-            os.path.join(
-                os.path.dirname(__file__),
-                'static',
-            ),
-        )
-
+STATICFILES_DIRS = (
+   BASE_DIR + '/static/',
+)
 
 TEMPLATE_DIRS = (
-    BASE_DIR + '/templates/'
+    BASE_DIR + '/templates/',
 )
 
 
@@ -80,8 +107,12 @@ TEMPLATE_DIRS = (
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
 )
+
+
+LOGIN_REDIRECT_URL = '/profile'
+LOGIN_URL = 'django.contrib.auth.views.login'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -101,3 +132,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'mail@ratankumar.org'
+EMAIL_HOST_PASSWORD = 'ccsqoswplgxenrtk'
+EMAIL_PORT = 587
+SITE_HOST = '127.0.0.1:8000'
