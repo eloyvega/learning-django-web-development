@@ -20,14 +20,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'l@y^@ra9q(ws(amb*-$wyc&_w@)1)s!p4r04rq9od$nr_*3!nx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
 # Application definition
-
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -38,8 +37,34 @@ INSTALLED_APPS = (
     'user_profile',
     'tweet',
     'social.apps.django_app.default',
+    'tastypie',
+    'debug_toolbar',
 )
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'file':{
+            'level':'DEBUG',
+            'class': 'logging.FileHandler',
+            'formatter': 'simple',
+            'filename': 'logs/debug.log',
+           }
+    },
+    'loggers': {
+        'django': {
+        'handlers':['file'],
+        'propagate': True,
+        'level':'INFO',
+    },
+    }
+}
 
 AUTHENTICATION_BACKENDS = (
     'social.backends.twitter.TwitterOAuth',

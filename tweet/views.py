@@ -11,9 +11,11 @@ import json
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-
+import logging
+logger = logging.getLogger('django')
 
 TWEET_PER_PAGE = 5
+
 
 class LoginRequiredMixin(object):
     @method_decorator(login_required)
@@ -31,8 +33,10 @@ class Index(View):
 class UserRedirect(View):
     def get(self, request):
         if request.user.is_authenticated():
+            logger.info('authorized user')
             return HttpResponseRedirect('/user/'+request.user.username)
         else:
+            logger.info('unauthorized user')
             return HttpResponseRedirect('/login/')
 
 

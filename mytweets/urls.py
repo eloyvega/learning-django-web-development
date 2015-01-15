@@ -5,6 +5,12 @@ from django.contrib import admin
 from tweet.views import Index, Profile, PostTweet, HashTagCloud, Search, SearchHashTag, HashTagJson, UserRedirect, MostFollowedUsers
 from user_profile.views import Invite, InviteAccept, Register
 from django.views.decorators.cache import cache_page
+from tastypie.api import Api
+from tweet.api import TweetResource
+
+v1_api = Api(api_name='v1')
+v1_api.register(TweetResource())
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -23,5 +29,6 @@ urlpatterns = patterns('',
     url(r'^login/$', 'django.contrib.auth.views.login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout'),
     url(r'^register/$', Register.as_view()),
-    url('', include('social.apps.django_app.urls', namespace='social'))
+    url('', include('social.apps.django_app.urls', namespace='social')),
+    url(r'^api/', include(v1_api.urls)),
 )
