@@ -1,1 +1,1 @@
-This is the repo of the Django Book
+"This is the repo of the Django Book"
