@@ -20,11 +20,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'l@y^@ra9q(ws(amb*-$wyc&_w@)1)s!p4r04rq9od$nr_*3!nx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 INSTALLED_APPS = (
@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'social.apps.django_app.default',
     'tastypie',
     'debug_toolbar',
+    'djangular',
 )
 
 LOGGING = {

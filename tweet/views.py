@@ -1,4 +1,4 @@
-from django.views.generic import View
+from django.views.generic import View,TemplateView
 from django.shortcuts import render
 from user_profile.models import User, UserFollower
 from models import Tweet, HashTag
@@ -162,7 +162,6 @@ class SearchHashTag(View):
         params["hashtags"] = hashtags
         params["search"] = form
         return render(request, 'search_hashtag.html', params)
-
 
 
 class HashTagJson(View):
