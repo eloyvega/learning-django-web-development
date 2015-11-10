@@ -87,3 +87,5 @@ class Register(View):
                     user.save()
 
                 return HttpResponseRedirect('/login')
+        else:
+            return render(request, 'registration/register.html', {'register':form})

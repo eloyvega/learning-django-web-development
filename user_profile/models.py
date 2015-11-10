@@ -26,6 +26,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __unicode__(self):
         return self.username
 
+    def get_short_name(self):
+        return self.username
+
 
 class UserFollower(models.Model):
     user = models.ForeignKey(User, unique=True)

@@ -110,15 +110,12 @@ SOCIAL_AUTH_TWITTER_SECRET = '5SVLkq2mI00p2XXSqf47Ngj8VJ3KyjKyjJcUN2CAXfvdfkB8uq
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-
 DATABASES = {
-	    'default': {
-	        'ENGINE': 'django.db.backends.mysql',
-	        'NAME': 'mytweets',
-	        'USER': 'root',
-	        'PASSWORD': 'root',
-	    }
-	}
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 STATICFILES_DIRS = (
    BASE_DIR + '/static/',

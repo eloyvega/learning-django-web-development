@@ -11,11 +11,12 @@ class RegisterForm(forms.Form):
     password = forms.CharField(widget=forms.TextInput(attrs={'size': 32, 'placeholder': 'Enter Password', 'class':'form-control'}))
     confirm_password = forms.CharField(widget=forms.TextInput(attrs={'size': 32, 'placeholder': 'Confirm Password', 'class':'form-control'}))
 
-    def clean_password(self):
-        password = self.cleaned_data['password']
-        confirm_password = self.cleaned_data['confirm_password']
-        if password != confirm_password:
-            raise forms.ValidationError(" Confirm Password Did not match.")
+
+
+    def clean(self):
+        if 'password' in self.cleaned_data and 'confirm_password' in self.cleaned_data and self.cleaned_data['password'] != self.cleaned_data['confirm_password']:
+            raise forms.ValidationError("The password does not match ")
+        return self.cleaned_data
 
 
 class RegistrationForm(forms.ModelForm):
